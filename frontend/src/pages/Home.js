@@ -17,7 +17,7 @@ function Home() {
     try {
       setLoading(true);
 
-      const response = await axios.post("http://localhost:5001/api/analyze", {
+      const response = await axios.post("https://seo-analyzer-backend-rvh5.onrender.com/api/analyze", {
         url,
       });
 
@@ -35,7 +35,7 @@ function Home() {
     const interval = setInterval(async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/job/${jobId}`,
+          `https://seo-analyzer-backend-rvh5.onrender.com/api/job/${jobId}`,
           {
             headers: {
               "Cache-Control": "no-cache",
