@@ -151,19 +151,22 @@ frontend
 
 ### Home Page
 
-(Add Screenshot)
-
+![Homepage](../screenshots/Home_page.png)
 ### Loading Screen
 
-(Add Screenshot)
+![Homepage](../screenshots/analyzing.png)
 
 ### SEO Report
 
-(Add Screenshot)
+![Homepage](../screenshots/SEO_Report.png)
 
 ### On Page SEO
 
-(Add Screenshot)
+![Homepage](../screenshots/On-Page.png)
+
+### Technical SEO
+
+![Homepage](../screenshots/Technical.png)
 
 ---
 
