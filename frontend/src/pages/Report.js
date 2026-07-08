@@ -41,7 +41,7 @@ function Report() {
   if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
   if (!report) return <h2 style={{ textAlign: "center" }}>Report Not Found</h2>;
 
-  const { summary, crawler, onPage } = report;
+  const { summary, crawler, onPage, technical,performance, content } = report;
 
   return (
     <div className="report-container">
@@ -151,6 +151,132 @@ function Report() {
           </div>
         ))}
       </div>
+
+
+<div className="section">
+  <h2>Technical SEO</h2>
+
+  {Object.entries(technical).map(([key, value]) => (
+    <div className="metric" key={key}>
+      <div className="metric-title">{key}</div>
+
+      {value && typeof value === "object" && !Array.isArray(value) ? (
+        <>
+          {Object.prototype.hasOwnProperty.call(value, "status") && (
+            <div className="metric-row">
+              <strong>Status:</strong>
+              <StatusBadge status={value.status} />
+            </div>
+          )}
+
+          {Object.entries(value).map(([k, v]) => {
+            if (["status", "recommendation"].includes(k)) return null;
+            return (
+              <div className="metric-row" key={k}>
+                <strong>{k}:</strong>{" "}
+                {v && typeof v === "object" ? JSON.stringify(v) : String(v)}
+              </div>
+            );
+          })}
+
+          {Object.prototype.hasOwnProperty.call(value, "recommendation") &&
+            value.recommendation && (
+              <div className="recommendation">
+                <strong>Recommendation:</strong> {value.recommendation}
+              </div>
+            )}
+        </>
+      ) : (
+        <div className="metric-row">
+          <strong>Value:</strong> {String(value)}</div>
+      )}
+    </div>
+  ))}
+</div>
+
+<div className="section">
+  <h2>Performance</h2>
+
+  {Object.entries(performance).map(([key, value]) => (
+    <div className="metric" key={key}>
+      <div className="metric-title">{key}</div>
+
+      {value && typeof value === "object" && !Array.isArray(value) ? (
+        <>
+          {Object.prototype.hasOwnProperty.call(value, "status") && (
+            <div className="metric-row">
+              <strong>Status:</strong>
+              <StatusBadge status={value.status} />
+            </div>
+          )}
+
+          {Object.entries(value).map(([k, v]) => {
+            if (["status", "recommendation"].includes(k)) return null;
+            return (
+              <div className="metric-row" key={k}>
+                <strong>{k}:</strong>{" "}
+                {v && typeof v === "object" ? JSON.stringify(v) : String(v)}
+              </div>
+            );
+          })}
+
+          {Object.prototype.hasOwnProperty.call(value, "recommendation") &&
+            value.recommendation && (
+              <div className="recommendation">
+                <strong>Recommendation:</strong> {value.recommendation}
+              </div>
+            )}
+        </>
+      ) : (
+        <div className="metric-row">
+          <strong>Value:</strong> {String(value)}</div>
+      )}
+    </div>
+  ))}
+</div>
+
+<div className="section">
+  <h2>Content Analysis</h2>
+
+  {Object.entries(content).map(([key, value]) => (
+    <div className="metric" key={key}>
+      <div className="metric-title">{key}</div>
+
+      {value && typeof value === "object" && !Array.isArray(value) ? (
+        <>
+          {Object.prototype.hasOwnProperty.call(value, "status") && (
+            <div className="metric-row">
+              <strong>Status:</strong>
+              <StatusBadge status={value.status} />
+            </div>
+          )}
+
+          {Object.entries(value).map(([k, v]) => {
+            if (["status", "recommendation"].includes(k)) return null;
+            return (
+              <div className="metric-row" key={k}>
+                <strong>{k}:</strong>{" "}
+                {v && typeof v === "object" ? JSON.stringify(v) : String(v)}
+              </div>
+            );
+          })}
+
+          {Object.prototype.hasOwnProperty.call(value, "recommendation") &&
+            value.recommendation && (
+              <div className="recommendation">
+                <strong>Recommendation:</strong> {value.recommendation}
+              </div>
+            )}
+        </>
+      ) : (
+        <div className="metric-row">
+          <strong>Value:</strong> {String(value)}</div>
+      )}
+    </div>
+  ))}
+</div>
+
+
     </div>
   );
 }
