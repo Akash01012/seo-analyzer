@@ -3,145 +3,154 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+function StatusBadge({ status }) {
+  const cls =
+    status === "pass"
+      ? "pass"
+      : status === "warning"
+      ? "warning"
+      : "error";
+
+  return (
+    <span className={`badge ${cls}`}>
+      {status?.toUpperCase()}
+    </span>
+  );
+}
 
 function Report() {
   const { jobId } = useParams();
-
   const [report, setReport] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchReport();
-  }, []);
+    (async () => {
+      try {
+        const res = await axios.get(
+          `https://seo-analyzer-backend-rvh5.onrender.com/api/results/${jobId}`
+        );
+        setReport(res.data.data);
+      } catch (e) {
+        alert("Unable to load report.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [jobId]);
 
-  const fetchReport = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5001/api/results/${jobId}`
-      );
+  if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  if (!report) return <h2 style={{ textAlign: "center" }}>Report Not Found</h2>;
 
-      setReport(response.data.data);
-    } catch (error) {
-      alert("Unable to load report.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return <h2 style={{ textAlign: "center" }}>Loading Report...</h2>;
-  }
-
-  if (!report) {
-    return <h2 style={{ textAlign: "center" }}>Report Not Found</h2>;
-  }
-
-  const { summary } = report;
+  const { summary, crawler, onPage } = report;
 
   return (
+    <div className="report-container">
+      <h1 className="page-title">SEO Analysis Report</h1>
+
+<div className="summary-grid">
+
+  {/* Left Card */}
+  <div className="summary-card info-card">
+
+    <div className="info-box">
+      <div className="info-icon">🌐</div>
+      <div className="info-content">
+        <p>Website</p>
+        <h4>{report.url}</h4>
+      </div>
+    </div>
+
+    <div className="info-box">
+      <div className="info-icon">🏆</div>
+      <div className="info-content">
+        <p>Grade</p>
+        <h4>{summary.grade}</h4>
+      </div>
+    </div>
+
+    <div className="info-box">
+      <div className="info-icon">⚡</div>
+      <div className="info-content">
+        <p>Execution Time</p>
+        <h4>{summary.executionTime} ms</h4>
+      </div>
+    </div>
+
+  </div>
+
+  {/* Right Card */}
+  <div className="summary-card score-card">
+
+    <h3>SEO Score</h3>
+
     <div
+      className="circle-progress"
       style={{
-        width: "90%",
-        margin: "30px auto",
-        fontFamily: "Arial",
+        background: `conic-gradient(
+          ${
+            summary.overallScore >= 80
+              ? "#22c55e"
+              : summary.overallScore >= 60
+              ? "#f59e0b"
+              : "#ef4444"
+          } ${summary.overallScore * 3.6}deg,
+          #e5e7eb 0deg
+        )`,
       }}
     >
-      <h1>SEO Analysis Report</h1>
+      <div className="circle-inner">
+        <span className="score">{summary.overallScore}</span>
+        <small>/100</small>
+      </div>
+    </div>
 
-      <hr />
+  </div>
 
-      <h2>Summary</h2>
+</div>
 
-      <p>
-        <strong>Website:</strong> {report.url}
-      </p>
+      <div className="section">
+        <h2>Crawler Information</h2>
 
-      <p>
-        <strong>Overall Score:</strong> {summary.overallScore}
-      </p>
+        <div className="metric-row"><strong>Title:</strong> {crawler.title}</div>
+        <div className="metric-row"><strong>Final URL:</strong> {crawler.finalUrl}</div>
+        <div className="metric-row"><strong>Status Code:</strong> {crawler.statusCode}</div>
+        <div className="metric-row"><strong>Response Time:</strong> {crawler.responseTime} ms</div>
+        <div className="metric-row"><strong>Page Size:</strong> {crawler.pageSize} bytes</div>
+        <div className="metric-row"><strong>Server:</strong> {crawler.headers.server}</div>
+      </div>
 
-      <p>
-        <strong>Grade:</strong> {summary.grade}
-      </p>
+      <div className="section">
+        <h2>On Page SEO</h2>
 
-      <p>
-        <strong>Execution Time:</strong>{" "}
-        {summary.executionTime} ms
-      </p>
+        {Object.entries(onPage).map(([key, value]) => (
+          <div className="metric" key={key}>
+            <div className="metric-title">{key}</div>
 
-      <p>
-        <strong>Completed:</strong>{" "}
-        {new Date(summary.completedAt).toLocaleString()}
-      </p>
+            {"status" in value && (
+              <div className="metric-row">
+                <strong>Status:</strong>
+                <StatusBadge status={value.status} />
+              </div>
+            )}
 
-      <hr />
+            {Object.entries(value).map(([k, v]) => {
+              if (["status", "recommendation"].includes(k)) return null;
+              return (
+                <div className="metric-row" key={k}>
+                  <strong>{k}:</strong>{" "}
+                  {typeof v === "object" ? JSON.stringify(v) : String(v)}
+                </div>
+              );
+            })}
 
-      <h2>Crawler Information</h2>
-
-      <pre>{JSON.stringify(report.crawler, null, 2)}</pre>
-
-      <hr />
-
-      <h2>On Page SEO</h2>
-
-      <pre>{JSON.stringify(report.onPage, null, 2)}</pre>
-
-      <hr />
-
-      <h2>Technical SEO</h2>
-
-      <pre>{JSON.stringify(report.technical, null, 2)}</pre>
-
-      <hr />
-
-      <h2>Performance</h2>
-
-      <pre>{JSON.stringify(report.performance, null, 2)}</pre>
-
-      <hr />
-
-      <h2>Content Analysis</h2>
-
-      <pre>{JSON.stringify(report.content, null, 2)}</pre>
-
-      <hr />
-
-      <h2>Recommendations</h2>
-
-      {report.recommendations.length === 0 ? (
-        <p>No recommendations.</p>
-      ) : (
-        <table
-          border="1"
-          cellPadding="10"
-          cellSpacing="0"
-          width="100%"
-        >
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Check</th>
-              <th>Severity</th>
-              <th>Recommendation</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {report.recommendations.map((item, index) => (
-              <tr key={index}>
-                <td>{item.category}</td>
-
-                <td>{item.check}</td>
-
-                <td>{item.severity}</td>
-
-                <td>{item.message}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            {value.recommendation && (
+              <div className="recommendation">
+                <strong>Recommendation:</strong> {value.recommendation}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
