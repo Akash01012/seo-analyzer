@@ -1,6 +1,6 @@
 # SEO Analyzer
 
-A Woorank-like SEO Analyzer built using custom logic and open-source libraries without using Woorank APIs or paid SEO APIs.
+A SEO Analyzer built using custom logic and open-source libraries.
 
 ---
 
