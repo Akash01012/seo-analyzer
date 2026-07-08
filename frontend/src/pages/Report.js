@@ -120,7 +120,7 @@ function Report() {
       </div>
 
       <div className="section">
-        <h2>On Page SEO</h2>
+        <h2>On-Page SEO</h2>
 
         {Object.entries(onPage).map(([key, value]) => (
           <div className="metric" key={key}>
