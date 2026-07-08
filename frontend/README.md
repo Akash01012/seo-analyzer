@@ -1,70 +1,173 @@
-# Getting Started with Create React App
+# SEO Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A SEO Analyzer built using custom logic and open-source libraries.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Live Demo
 
-### `npm start`
+### Frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+https://digi-seo-analyzer.vercel.app/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
 
-### `npm test`
+https://seo-analyzer-backend-rvh5.onrender.com/
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Website Crawling
+- On-Page SEO Analysis
+- Technical SEO Analysis
+- Performance Analysis
+- Content Analysis
+- Lighthouse Integration
+- SEO Score Generation
+- Recommendation System
+- Background Job Processing using BullMQ
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technology Stack
 
-### `npm run eject`
+### Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React.js
+- Axios
+- CSS
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Node.js
+- Express.js
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Database
 
-## Learn More
+- MongoDB Atlas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Queue
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- BullMQ
+- Upstash Redis
 
-### Code Splitting
+### Website Crawling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Puppeteer
+- Cheerio
 
-### Analyzing the Bundle Size
+### Performance Analysis
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Lighthouse
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Render
+- Vercel
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Akash01012/seo-analyzer.git
+```
+
+Install frontend
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Install backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+---
+
+## Environment Variables
+
+Backend
+
+```
+PORT=
+MONGO_URI=
+REDIS_HOST=
+REDIS_PORT=
+REDIS_PASSWORD=
+NODE_ENV=
+ENABLE_LIGHTHOUSE=
+```
+
+---
+
+## APIs
+
+### Start Analysis
+
+```
+POST /api/analyze
+```
+
+Request
+
+```json
+{
+    "url":"https://example.com"
+}
+```
+
+---
+
+### Get Report
+
+```
+GET /api/results/:id
+```
+
+---
+
+## Project Structure
+
+```
+seo-analyzer
+
+backend
+frontend
+```
+
+---
+
+## Screenshots
+
+### Home Page
+
+![Homepage](../screenshots/Home_page.png)
+
+### Analyzing Screen
+
+![Homepage](../screenshots/analyzing.png)
+### SEO Report
+
+![Homepage](../screenshots/SEO_Report.png)
+### On-Page SEO
+
+![Homepage](../screenshots/On-Page.png)
+
+### Technical SEO
+
+![Homepage](../screenshots/Technical.png)
+---
+
+## Author
+
+Akash Kumar
