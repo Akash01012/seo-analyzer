@@ -147,29 +147,6 @@ frontend
 
 ---
 
-## Screenshots
-
-### Home Page
-
-![Homepage](../screenshots/Home_page.png)
-### Loading Screen
-
-![Homepage](../screenshots/analyzing.png)
-
-### SEO Report
-
-![Homepage](../screenshots/SEO_Report.png)
-
-### On Page SEO
-
-![Homepage](../screenshots/On-Page.png)
-
-### Technical SEO
-
-![Homepage](../screenshots/Technical.png)
-
----
-
 ## Author
 
 Akash Kumar
